@@ -23,6 +23,7 @@ if (!email || !password) {
     }  
   const token = jwt.sign({ id: user._id, name: user.fullname }, 'secret', { expiresIn: '2h' });
   req.session.name = user.fullname
+  req.session.email = user.email
   req.session.id = user._id
   res.json({ message: 'Logged in successfully', token });
 };

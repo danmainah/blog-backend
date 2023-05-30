@@ -14,16 +14,15 @@ exports.createBlog = async (req , res) => {
     reading_time: req.body.reading_time
   });
   await blog.save();
-  // get the user id
-  const userRelated = await User.findById(req.session.id);
-  // // push the blogs created  into the user.blogs array
-  userRelated.blogs.push(blog); 
+  const email = req.session.email
+  const userBlogs = await User.findOne( { email } ); 
+  // push the blogs created  into the user.blogs array 
+  userBlogs.blogs.push(blog); 
   res.json(blog);
 };
 
 exports.getBlog = async (req, res) => {
   const blog = await Blog.findById(req.params.id);
-  console.log(req.params.id)
   res.json(blog);
 };
 

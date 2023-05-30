@@ -15,10 +15,12 @@ exports.createComment = async (req , res) => {
     author: req.session.id
   });
   await comment.save();
-  // get the user id
-//   const blogRelated = await User.findById(req.params.id);
-//   // push the comments created  into the user.comments array
-//   blogRelated.comments.push(comment); 
+  const email = req.session.email
+  const userComments = await User.findOne( { email } ); 
+  // push the comments created  into the user.comments array 
+  userComments.comments.push(comment); 
+  // push the comments created  into the blog.comments array 
+  blog.comments.push(comment); 
   res.json(comment);
 };
 
