@@ -26,8 +26,8 @@ const oneDay = 1000 * 60 * 60 * 24;
 app.use(sessions({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
     saveUninitialized:true,
-    cookie: { maxAge: oneDay },
-    resave: false 
+    cookie: { maxAge: oneDay},
+    resave: true
 }));
 
 if (app.get('env') === 'production') {
@@ -35,8 +35,8 @@ if (app.get('env') === 'production') {
   sess.cookie.secure = true // serve secure cookies
 }
 
-app.use('/', blogRouter);
-app.use('/users', userRouter)
+app.use('/users', userRouter);
+app.use('/blog', blogRouter);
 
 // verifying jwt tokens
 app.use(expressjwt({ secret: 'secret', algorithms: ["HS256"] }).unless({ path: ['/users/signup', '/users/login'] }));
