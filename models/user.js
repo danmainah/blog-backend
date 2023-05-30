@@ -5,7 +5,6 @@ const userSchema = new mongoose.Schema({
   fullname: {
     type: String,
     required: true,
-    unique: true,
   },
   email: {
     type: String,
@@ -16,7 +15,17 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-});
+  blogs: [
+    {
+       type: mongoose.Schema.Types.ObjectId,
+       ref: 'Blog'
+    }
+ ]
+},
+{
+  timestamps: true,
+},
+);
 
 userSchema.pre("save", async function (next) {
   const user = this;
