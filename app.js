@@ -30,10 +30,6 @@ app.use(sessions({
     resave: true
 }));
 
-if (app.get('env') === 'production') {
-  app.set('trust proxy', 1) // trust first proxy
-  sess.cookie.secure = true // serve secure cookies
-}
 
 app.use('/users', userRouter);
 app.use('/blog', blogRouter);
